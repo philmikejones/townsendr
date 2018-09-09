@@ -1,10 +1,10 @@
 library("dplyr")
-library("stringr")
 library("nomisr")
 
 nomis_id = data.frame(
   id   = c("NM_541_1", "NM_556_1", "NM_619_1", "NM_621_1"),
-  name = c("persons_per_room", "unemployed", "car", "tenure"),
+  year = c(2011L, 2011L, 2011L, 2011L),
+  name = c("persons_per_room", "unemployed", "tenure", "car"),
   stringsAsFactors = FALSE
 )
 
@@ -22,5 +22,14 @@ nomis_get_metadata("NM_619_1", "measures")
 nomis_get_metadata("NM_621_1", "measures")
 
 nomis_get_metadata("NM_541_1", "C_PPROOMHUK11")
+
+nomis_get_data("NM_556_1", geography = "TYPE480") %>%
+  distinct(CELL_NAME)
+
+nomis_get_data("NM_619_1", geography = "TYPE480") %>%
+  distinct(CELL_NAME)
+
+nomis_get_data("NM_621_1", geography = "TYPE480") %>%
+  distinct(CELL_NAME)
 
 nomis_get_data("NM_556_1", geography = "TYPE480")  # region
