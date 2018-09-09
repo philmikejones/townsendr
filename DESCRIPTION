@@ -10,3 +10,5 @@ Description: Calculate Townsend Material Deprivation scores for various geograph
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    nomisr
