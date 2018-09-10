@@ -1,4 +1,3 @@
-
 #' tr_list_geographies
 #'
 #' @param year A census year
@@ -10,10 +9,8 @@
 #' tr_list_geographies(2011)
 tr_list_geographies = function(year) {
 
-  load("R/sysdata.rda")
-
   geographies = lapply(
-    nomis_ids$id[nomis_ids$year == year],
+    townsendr:::nomis_ids$id[townsendr:::nomis_ids$year == year],
     nomisr::nomis_get_metadata, "geography", "TYPE"
   )
 
@@ -21,14 +18,12 @@ tr_list_geographies = function(year) {
 
   geographies = do.call(rbind, geographies)
 
-  ids = table(geographies$id)
-  ids = ids[ids == geographies_length]
-  ids = attr(ids, "dimnames")
-  ids = unlist(ids)
-  ids = as.vector(test)
-
-  geographies = geographies[geographies$id == ids, ]
-  geographies = unique(geographies)
+  geographies =
+    geographies %>%
+    dplyr::group_by(id) %>%
+    dplyr::filter(dplyr::n() == geographies_length) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(!duplicated(.))
 
   geographies
 
