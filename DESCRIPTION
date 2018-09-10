@@ -12,7 +12,8 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     nomisr,
-    dplyr
+    dplyr,
+    magrittr
 RoxygenNote: 6.1.0
 Suggests: 
     testthat
