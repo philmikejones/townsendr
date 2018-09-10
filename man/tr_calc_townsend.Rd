@@ -11,6 +11,14 @@ tr_calc_townsend(year = NULL, geography = NULL)
 
 \item{geography}{the geography you wish to calculate Townsend scores for}
 }
+\value{
+A tibble with census year, geography code, geography name, and results
+}
 \description{
 Calculate Townsend Material Deprivation scores for the specified geography.
+Geographies are specified using the Nomis API format, and can be found using
+tr_list_geographies()
+}
+\examples{
+tr_calc_townsend(2011, "TYPE480")
 }
