@@ -15,7 +15,7 @@
 tr_calc_townsend <- function(year = NULL, geography = NULL) {
 
   if (is.null(year)) {
-    stop("Census year not specified")
+    stop("Census year is not specified")
   }
 
   year <- as.integer(year)
