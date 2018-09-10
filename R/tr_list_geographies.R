@@ -9,6 +9,8 @@
 #' tr_list_geographies(2011)
 tr_list_geographies <- function(year) {
 
+  stop("this function needs breaking down further for testing")
+
   tr_check_year(year)
 
   geographies <- lapply(
