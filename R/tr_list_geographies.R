@@ -11,7 +11,7 @@
 tr_list_geographies = function(year) {
 
   geographies = lapply(
-    nomis_id$id[nomis_id$year == year],
+    townsendr:::nomis_ids$id[nomis_ids$year == year],
     nomisr::nomis_get_metadata, "geography", "TYPE"
   )
 
