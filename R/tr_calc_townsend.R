@@ -14,4 +14,18 @@
 #' tr_calc_townsend(2011, "TYPE480")
 tr_calc_townsend <- function(year = NULL, geography = NULL) {
 
+  if (is.null(year)) {
+    stop("Census year not specified")
+  }
+
+  year <- as.integer(year)
+
+  if (year != 2011L && year != 2001L && year != 1991 && year != 1981) {
+    stop("Year is not a census year")
+  }
+
+  if (is.null(geography)) {
+    stop("Geography is not specified")
+  }
+
 }
