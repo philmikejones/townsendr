@@ -1,3 +1,8 @@
+#' @importFrom tibble tibble
+#' @keywords internal
+"_PACKAGE"
+
+
 #' Pipe operator
 #'
 #' See \code{magrittr::\link[magrittr]{\%>\%}} for details.
