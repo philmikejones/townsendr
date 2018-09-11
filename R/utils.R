@@ -40,3 +40,103 @@ tr_check_year <- function(year = NULL) {
   }
 
 }
+
+
+
+# # prep data
+# year = 2011
+# geography = "TYPE480"
+#
+#
+#
+# tr_check_year(year)
+# year <- as.integer(year)
+#
+#
+# car <- nomisr::nomis_get_data(
+#   id = nomis_ids$id[nomis_ids$year == year & nomis_ids$name == "car"],
+#   geography = geography,
+#   measures = 20301,
+#   select = c(
+#     "GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "CELL_NAME", "OBS_VALUE",
+#     "RURAL_URBAN_NAME"
+#   )
+# )
+#
+# car <-
+#   car %>%
+#   dplyr::filter(
+#     RURAL_URBAN_NAME == "Total",
+#     CELL_NAME == "No cars or vans in household"
+#   ) %>%
+#   dplyr::mutate(CELL_NAME = "car") %>%
+#   dplyr::select(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME, OBS_VALUE)
+#
+#
+# persons_per_room <- nomisr::nomis_get_data(
+#   id = nomis_ids$id[nomis_ids$year == year &
+#                       nomis_ids$name == "persons_per_room"],
+#   geography = geography,
+#   measures = 20301,
+#   select = c(
+#     "GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "C_PPROOMHUK11_NAME", "OBS_VALUE",
+#     "RURAL_URBAN_NAME"
+#   )
+# )
+#
+# persons_per_room <-
+#   persons_per_room %>%
+#   dplyr::filter(RURAL_URBAN_NAME == "Total") %>%
+#   dplyr::filter(
+#     stringr::str_detect(
+#       C_PPROOMHUK11_NAME,
+#       "Over 1.0 and up to 1.5 persons per room|Over 1.5 persons per room"
+#     )
+#   ) %>%
+#   dplyr::group_by(GEOGRAPHY_CODE, GEOGRAPHY_NAME) %>%
+#   dplyr::summarise_if(is.numeric, sum) %>%
+#   dplyr::ungroup() %>%
+#   dplyr::mutate(CELL_NAME = "persons_per_room") %>%
+#   dplyr::select(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME, OBS_VALUE)
+#
+#
+# tenure <- nomisr::nomis_get_data(
+#   id = nomis_ids$id[nomis_ids$year == year & nomis_ids$name == "tenure"],
+#   geography = geography,
+#   measures = 20301,
+#   select = c(
+#     "GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "CELL_NAME", "OBS_VALUE",
+#     "RURAL_URBAN_NAME"
+#   )
+# )
+#
+# tenure <-
+#   tenure %>%
+#   dplyr::filter(RURAL_URBAN_NAME == "Total") %>%
+#   dplyr::filter(
+#     CELL_NAME == "Social rented" |
+#       CELL_NAME == "Private rented" |
+#       CELL_NAME == "Living rent free"
+#   ) %>%
+#   dplyr::group_by(GEOGRAPHY_CODE, GEOGRAPHY_NAME) %>%
+#   dplyr::summarise_if(is.numeric, sum) %>%
+#   dplyr::ungroup() %>%
+#   dplyr::mutate(CELL_NAME = "tenure") %>%
+#   dplyr::select(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME, OBS_VALUE)
+#
+#
+# unemployed <- nomisr::nomis_get_data(
+#   id = nomis_ids$id[nomis_ids$year == year & nomis_ids$name == "unemployed"],
+#   geography = geography,
+#   measures = 20301,select = c(
+#     "GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "CELL_NAME", "OBS_VALUE",
+#     "RURAL_URBAN_NAME"
+#   )
+# )
+#
+# unemployed <-
+#   unemployed %>%
+#   dplyr::filter(RURAL_URBAN_NAME == "Total") %>%
+#   dplyr::filter(CELL_NAME == "Economically active: Unemployed") %>%
+#   dplyr::mutate(CELL_NAME = "unemployed") %>%
+#   dplyr::select(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME, OBS_VALUE)
