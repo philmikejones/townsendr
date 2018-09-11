@@ -7,7 +7,7 @@
 tr_list_geographies(year = NULL)
 }
 \arguments{
-\item{year}{A census year}
+\item{year}{A census year. Currently the 2011 and 2001 censuses are supported}
 }
 \value{
 A [tibble][tibble::tibble-package] of available census geographies

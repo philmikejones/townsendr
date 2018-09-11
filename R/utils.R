@@ -35,8 +35,8 @@ tr_check_year <- function(year = NULL) {
     stop("year is not a number")
   }
 
-  if (year != 2011L && year != 2001L && year != 1991 && year != 1981) {
-    stop("year is not a census year")
+  if (year != 2011L && year != 2001L) {
+    stop("year is not a supported census year")
   }
 
 }

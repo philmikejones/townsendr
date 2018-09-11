@@ -3,7 +3,7 @@
 #' List the available census geographies. Returns a
 #' [tibble][tibble::tibble-package] with one row per available geography.
 #'
-#' @param year A census year
+#' @param year A census year. Currently the 2011 and 2001 censuses are supported
 #'
 #' @return A [tibble][tibble::tibble-package] of available census geographies
 #' @export
