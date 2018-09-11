@@ -1,16 +1,10 @@
-context("Test tr_list_geographies")
+context("tr_list_geographies()")
 
-test_that("check year", {
-  expect_error(tr_list_geographies(2012))
-  expect_error(tr_list_geographies(NULL))
-})
+test_that("tr_list_geographies() returns correctly", {
 
-test_that("check year is correct", {
-  expect_silent(tr_list_geographies(2011))
-})
+  skip_on_cran()
 
-test = tr_list_geographies(2011)
+  test = tr_list_geographies(2011)
+  expect_true(tibble::is_tibble(test))
 
-test_that("Ouput is a data frame", {
-  expect_is(tr_list_geog)
 })
