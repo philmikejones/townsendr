@@ -4,13 +4,14 @@
 \alias{tr_list_geographies}
 \title{tr_list_geographies}
 \usage{
-tr_list_geographies(year)
+tr_list_geographies(year = NULL)
 }
 \arguments{
 \item{year}{A census year}
 }
 \value{
-A list of tibbles of available census geographies
+A list of [tibbles][tibble::tibble-package] of available census
+geographies
 }
 \description{
 tr_list_geographies

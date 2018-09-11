@@ -2,14 +2,13 @@
 #'
 #' @param year A census year
 #'
-#' @return A list of tibbles of available census geographies
+#' @return A list of [tibbles][tibble::tibble-package] of available census
+#' geographies
 #' @export
 #'
 #' @examples
 #' tr_list_geographies(2011)
-tr_list_geographies <- function(year) {
-
-  stop("this function needs breaking down further for testing")
+tr_list_geographies <- function(year = NULL) {
 
   tr_check_year(year)
 
@@ -18,17 +17,23 @@ tr_list_geographies <- function(year) {
     nomisr::nomis_get_metadata, "geography", "TYPE"
   )
 
+  browser()
+
+  # check something returns
   if (length(geographies) == 0L) {
     message("No results for specified year")
   }
+
   geographies_length <- length(geographies)  # for filter()
 
-  # Remove any geographies that aren't present in all returned tables
-  df_check <- lapply(geographies, is.data.frame)
-  if (!all(unlist(df_check))) {
-    stop("Results returned malformed. Check year")
-  }
   geographies <- do.call(rbind, geographies)
+
+
+  # check format of returned data
+
+
+  # Remove any geographies that aren't present in all returned tables
+
 
   if (nrow(geographies) < geographies_length) {
     stop("Results returned malformed. Check year")
