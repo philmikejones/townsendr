@@ -4,7 +4,7 @@
 \alias{tr_check_year}
 \title{tr_check_year}
 \usage{
-tr_check_year(year)
+tr_check_year(year = NULL)
 }
 \arguments{
 \item{year}{an input that can be converted to an integer year}
@@ -13,9 +13,12 @@ tr_check_year(year)
 Returns silently or, if an incorrect year is specified, an error
 }
 \description{
-Check a census year input
+Check a census year input. This is an internal function for checking user
+inputs.
 }
 \examples{
-tr_check_year(2011)  # returns silently
-tr_check_year(2012)  # returns an error
+tr_check_year(2011)             # returns silently
+tr_check_year(2012)             # returns an error
+tr_check_year("2011")           # returns silently
+tr_check_year("twenty eleven")  # returns an error
 }
