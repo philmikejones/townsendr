@@ -9,13 +9,17 @@
 #' @examples
 #' tr_check_year(2011)  # returns silently
 #' tr_check_year(2012)  # returns an error
-tr_check_year <- function(year) {
+tr_check_year <- function(year = NULL) {
 
   if (is.null(year)) {
     stop("Census year is not specified")
   }
 
   year <- as.integer(year)
+
+  if (is.na(year)) {
+    stop("year is not a number")
+  }
 
   if (year != 2011L && year != 2001L && year != 1991 && year != 1981) {
     stop("Year is not a census year")
