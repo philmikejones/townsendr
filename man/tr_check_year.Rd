@@ -17,8 +17,10 @@ Check a census year input. This is an internal function for checking user
 inputs.
 }
 \examples{
-tr_check_year(2011)             # returns silently
+tr_check_year(2011)    # returns silently
+tr_check_year("2011")  # returns silently
+\dontrun{
 tr_check_year(2012)             # returns an error
-tr_check_year("2011")           # returns silently
 tr_check_year("twenty eleven")  # returns an error
+}
 }

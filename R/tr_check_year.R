@@ -8,10 +8,12 @@
 #' @return Returns silently or, if an incorrect year is specified, an error
 #'
 #' @examples
-#' tr_check_year(2011)             # returns silently
+#' tr_check_year(2011)    # returns silently
+#' tr_check_year("2011")  # returns silently
+#' \dontrun{
 #' tr_check_year(2012)             # returns an error
-#' tr_check_year("2011")           # returns silently
 #' tr_check_year("twenty eleven")  # returns an error
+#' }
 tr_check_year <- function(year = NULL) {
 
   if (is.null(year)) {
