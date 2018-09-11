@@ -17,5 +17,7 @@ List the available census geographies. Returns a
 [tibble][tibble::tibble-package] with one row per available geography.
 }
 \examples{
+\dontrun{
 tr_list_geographies(2011)
+}
 }

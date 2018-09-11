@@ -9,13 +9,15 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tr_list_geographies(2011)
+#' }
 tr_list_geographies <- function(year = NULL) {
 
   tr_check_year(year)
 
   geographies <- lapply(
-    townsendr:::nomis_ids$id[townsendr:::nomis_ids$year == year],
+    nomis_ids$id[nomis_ids$year == year],
     nomisr::nomis_get_metadata, "geography", "TYPE"
   )
 
