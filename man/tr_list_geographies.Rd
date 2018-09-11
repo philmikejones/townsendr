@@ -10,11 +10,11 @@ tr_list_geographies(year = NULL)
 \item{year}{A census year}
 }
 \value{
-A list of [tibbles][tibble::tibble-package] of available census
-geographies
+A [tibble][tibble::tibble-package] of available census geographies
 }
 \description{
-tr_list_geographies
+List the available census geographies. Returns a
+[tibble][tibble::tibble-package] with one row per available geography.
 }
 \examples{
 tr_list_geographies(2011)
