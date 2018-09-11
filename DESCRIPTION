@@ -13,7 +13,8 @@ LazyData: true
 Imports: 
     nomisr,
     dplyr,
-    magrittr
+    magrittr,
+    tibble
 RoxygenNote: 6.1.0
 Suggests: 
     testthat
