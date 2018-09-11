@@ -12,18 +12,21 @@ test_that("Correct years return silently", {
 })
 
 
-context("tr_get_nomis_data()")
+context("tr_check_geography()")
 
-test_that("incorrect inputs return an error", {
+test_that("incorrect input returns an error", {
   expect_error(
-    tr_get_nomis_data(year = 2012),
-    "year is not a supported census year"
+    tr_check_geography(geography = NULL),
+    "geography is not specified"
   )
   expect_error(
-    tr_get_nomis_data(year = 2011, geography = "regions"),
+    tr_check_geography(geography = "regions"),
     "geography is not specified correctly"
   )
 })
+
+
+context("tr_get_nomis_data()")
 
 test_that("correct inputs return a list of tibbles", {
   test = tr_get_nomis_data(year = 2011, geography = "TYPE499")
