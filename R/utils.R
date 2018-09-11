@@ -17,7 +17,7 @@ NULL
 
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
-## See: https://github.com/STAT545-UBC/Discussion/issues/451#issuecomment-264598618
+## https://github.com/STAT545-UBC/Discussion/issues/451#issuecomment-264598618
 ## I've add 'id' as this is also a global that the user does not have access to
 if(getRversion() >= "2.15.1")  utils::globalVariables(c(".", "id"))
 
@@ -42,17 +42,49 @@ tr_check_year <- function(year = NULL) {
 }
 
 
+## Check geography input as argument to various function
+tr_check_geography <- function(geography = NULL) {
 
-# # prep data
-# year = 2011
-# geography = "TYPE480"
-#
-#
-#
-# tr_check_year(year)
-# year <- as.integer(year)
-#
-#
+  if (is.null(geography)) {
+    stop("geography is not specified")
+  }
+
+  geography <- as.character(geography)
+
+  if (!grepl("TYPE[0-9].+", geography)) {
+    stop(
+      "geography is not specified correctly.
+    List geographies with tr_list_geographies()
+    Specify geography as an `id`"
+    )
+  }
+
+}
+
+
+## Download required data from nomis
+tr_get_nomis_data <- function(year = NULL, geography = NULL) {
+
+  tr_check_year(year)
+  year <- as.integer(year)
+
+  tr_check_geography(geography)
+  geography <- as.character(geography)
+
+  nomis_ids <- nomis_ids[nomis_ids$year == year, ]
+
+  tr_data <- lapply(nomis_ids$id, function(id) {
+    nomisr::nomis_get_data(
+      id = id,
+      geography = geography,
+      measures = 20301,
+    )
+  })
+
+  tr_data
+
+}
+
 # car <- nomisr::nomis_get_data(
 #   id = nomis_ids$id[nomis_ids$year == year & nomis_ids$name == "car"],
 #   geography = geography,
