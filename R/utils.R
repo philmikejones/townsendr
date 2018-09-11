@@ -85,6 +85,17 @@ tr_get_nomis_data <- function(year = NULL, geography = NULL) {
 
 }
 
+
+tr_prep_data <- function(tr_data) {
+
+  tr_data <- lapply(tr_data, function(x) {
+    x <- x[x$RURAL_URBAN_NAME == "Total", ]
+  })
+
+  tr_data
+
+}
+
 # car <- nomisr::nomis_get_data(
 #   id = nomis_ids$id[nomis_ids$year == year & nomis_ids$name == "car"],
 #   geography = geography,
@@ -98,7 +109,6 @@ tr_get_nomis_data <- function(year = NULL, geography = NULL) {
 # car <-
 #   car %>%
 #   dplyr::filter(
-#     RURAL_URBAN_NAME == "Total",
 #     CELL_NAME == "No cars or vans in household"
 #   ) %>%
 #   dplyr::mutate(CELL_NAME = "car") %>%
@@ -118,7 +128,6 @@ tr_get_nomis_data <- function(year = NULL, geography = NULL) {
 #
 # persons_per_room <-
 #   persons_per_room %>%
-#   dplyr::filter(RURAL_URBAN_NAME == "Total") %>%
 #   dplyr::filter(
 #     stringr::str_detect(
 #       C_PPROOMHUK11_NAME,
@@ -144,7 +153,6 @@ tr_get_nomis_data <- function(year = NULL, geography = NULL) {
 #
 # tenure <-
 #   tenure %>%
-#   dplyr::filter(RURAL_URBAN_NAME == "Total") %>%
 #   dplyr::filter(
 #     CELL_NAME == "Social rented" |
 #       CELL_NAME == "Private rented" |
@@ -168,7 +176,6 @@ tr_get_nomis_data <- function(year = NULL, geography = NULL) {
 #
 # unemployed <-
 #   unemployed %>%
-#   dplyr::filter(RURAL_URBAN_NAME == "Total") %>%
 #   dplyr::filter(CELL_NAME == "Economically active: Unemployed") %>%
 #   dplyr::mutate(CELL_NAME = "unemployed") %>%
 #   dplyr::select(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME, OBS_VALUE)
