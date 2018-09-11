@@ -1,3 +1,7 @@
+[![Travis build status](https://travis-ci.org/philmikejones/townsendr.svg?branch=master)](https://travis-ci.org/philmikejones/townsendr)
+[![Coverage status](https://codecov.io/gh/philmikejones/townsendr/branch/master/graph/badge.svg)](https://codecov.io/github/philmikejones/townsendr?branch=master)
+
+
 # townsendr
 
 The Townsend Material Deprivation score was originally devised by Townsend et al
@@ -20,15 +24,22 @@ less deprived than another, but not what ‘amount’ of deprivation it experien
 For this reason it is common to create a score based on a national dataset.
 
 
-References
-===============
+## References
 
-Office for National Statistics, 2011 Census: Aggregate data (England and Wales) [computer file].
+- Office for National Statistics, 2011 Census: Aggregate data (England and Wales) [computer file].
 Downloaded from: http://www.nomisweb.co.uk/census/2011 [Accessed February 2014].
 This information is licensed under the terms of the Open Government Licence [http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2].
-
-Office for National Statistics, 2011 Census: Digitised Boundary Data (England and Wales) [computer file].
+- Office for National Statistics, 2011 Census: Digitised Boundary Data (England and Wales) [computer file].
 UK Data Service Census Support.
 Downloaded from: http://edina.ac.uk/census
+- Townsend, Peter, Phillimore, Peter and Beattie, Alastair (1988) 'Health and Deprivation: Inequality and the North'. London: Croom Helm
 
-Townsend, Peter, Phillimore, Peter and Beattie, Alastair (1988) 'Health and Deprivation: Inequality and the North'. London: Croom Helm
+
+## License
+
+MIT. Copyright 2018 Phil Mike Jones.
+
+
+## Contributing
+
+Please note that the 'townsendr' project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.

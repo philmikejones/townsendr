@@ -17,4 +17,5 @@ Imports:
     tibble
 RoxygenNote: 6.1.0
 Suggests: 
-    testthat
+    testthat,
+    covr
