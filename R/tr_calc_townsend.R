@@ -19,9 +19,16 @@ tr_calc_townsend <- function(year = NULL, geography = NULL) {
   year <- as.integer(year)
 
 
-  # Check and clean geography input
-  if (is.null(geography)) {
-    stop("Geography is not specified")
-  }
+  # check and clean geography input
+  tr_check_geography(geography)
+  geography <- as.character(geography)
+
+  tr_data <- tr_get_nomis_data(year = year, geography = geography)
+  tr_data <- tr_bind_data(tr_data)
+  tr_data <- tr_label_data(tr_data)
+  tr_data <- tr_shape_data(tr_data)
+  tr_data <- tr_calc_z(tr_data)
+
+  tr_data
 
 }
