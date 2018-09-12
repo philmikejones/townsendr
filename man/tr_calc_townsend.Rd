@@ -20,5 +20,5 @@ Geographies are specified using the Nomis API format, and can be found using
 tr_list_geographies()
 }
 \examples{
-tr_calc_townsend(2011, "TYPE480")
+tr_calc_townsend(2011, "TYPE499")
 }
