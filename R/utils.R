@@ -104,7 +104,7 @@ tr_bind_data <- function(tr_data) {
   }
 
   for (i in seq_along(tr_data)) {
-    if (!(is.data.frame(i) | tibble::is_tibble(i))) {
+    if (!(is.data.frame(tr_data[[i]]) | tibble::is_tibble(tr_data[[i]]))) {
       stop("tr_data supplied to tr_prep_data() is not a list of 4 data frames")
     }
   }
