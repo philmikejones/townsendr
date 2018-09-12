@@ -175,7 +175,7 @@ tr_label_data <- function(tr_data) {
 
   tr_data <-
     tr_data %>%
-    dplyr::mutate(
+    dplyr::rename(
       geography_code = GEOGRAPHY_CODE,
       geography_name = GEOGRAPHY_NAME
     )
