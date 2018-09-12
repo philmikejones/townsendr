@@ -161,6 +161,13 @@ tr_label_data <- function(tr_data) {
 
     )
 
+  tr_data <-
+    tr_data %>%
+    mutate(
+      geography_code = GEOGRAPHY_CODE,
+      geography_name = GEOGRAPHY_NAME
+    )
+
   tr_data
 
 }
@@ -178,7 +185,7 @@ tr_shape_data <- function(tr_data) {
       CELL_NAME == "car" | CELL_NAME == "persons_per_room" |
         CELL_NAME == "tenure" | CELL_NAME == "unemployed"
     ) %>%
-    dplyr::group_by(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME) %>%
+    dplyr::group_by(geography_code, geography_name, CELL_NAME) %>%
     dplyr::summarise_if(is.numeric, sum) %>%
     dplyr::ungroup() %>%
     tidyr::spread(key = CELL_NAME, value = OBS_VALUE)
@@ -200,6 +207,11 @@ tr_calc_z <- function(tr_data) {
       function(x) {
         x <- scale(x, center = TRUE, scale = TRUE)
       })
+
+  tr_data <-
+    tr_data %>%
+    mutate(townsend = car + persons_per_room + tenure + unemployed) %>%
+    select(-car, -persons_per_room, -tenure, -unemployed)
 
   tr_data
 
