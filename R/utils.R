@@ -186,3 +186,21 @@ tr_shape_data <- function(tr_data) {
   tr_data
 
 }
+
+
+tr_calc_z <- function(tr_data) {
+
+  if (!(tibble::is_tibble(tr_data) | is.data.frame(tr_data))) {
+    stop("tr_data supplied to tr_label_data() is not a data frame")
+  }
+
+  tr_data[, c("car", "persons_per_room", "tenure", "unemployed")] <-
+    lapply(
+      tr_data[, c("car", "persons_per_room", "tenure", "unemployed")],
+      function(x) {
+        x <- scale(x, center = TRUE, scale = TRUE)
+      })
+
+  tr_data
+
+}
