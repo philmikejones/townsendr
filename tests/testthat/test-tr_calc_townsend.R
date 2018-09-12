@@ -32,6 +32,17 @@ test_that("incorrect input errors", {
   )
 })
 
+dat = tr_bind_data(dat)
+
 test_that("correct input returns data frame", {
-  expect_s3_class(tr_bind_data(dat), c("tbl_df", "data.frame"))
+  expect_s3_class(dat, c("tbl_df", "data.frame"))
+})
+
+
+context("tr_label_data()")
+
+test_that("incorrect input errors", {
+  expect_error(
+    tr_label_data(c("dat1", "dat2")), "not a data frame"
+  )
 })
