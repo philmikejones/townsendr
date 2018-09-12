@@ -49,9 +49,34 @@ test_that("incorrect input errors", {
 
 dat = tr_label_data(dat)
 test_that("correct input is correctly labelled", {
-  expect_true(all.equal(
+  expect_true(isTRUE(all.equal(
     colnames(dat), c(
       "geography_code", "geography_name", "CELL_NAME", "OBS_VALUE"
     )
-  ))
+  )))
+})
+
+
+context("tr_shape_data()")
+
+test_that("incorrect input errors", {
+  expect_error(
+    tr_shape_data(c("dat1", "dat2")),
+    msg = "tr_data supplied to tr_shape_data"
+  )
+})
+
+dat = tr_shape_data(dat)
+test_that("correct input is correctly processed", {
+  expect_true(isTRUE(all.equal(
+    colnames(dat), c(
+      "geography_code", "geography_name", "car", "persons_per_room",
+      "tenure", "unemployed"
+    )
+  )))
+
+  expect_true(is.numeric(dat$car))
+  expect_true(is.numeric(dat$persons_per_room))
+  expect_true(is.numeric(dat$tenure))
+  expect_true(is.numeric(dat$unemployed))
 })
