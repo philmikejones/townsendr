@@ -165,7 +165,7 @@ tr_label_data <- function(tr_data) {
 
   tr_data <-
     tr_data %>%
-    mutate(
+    dplyr::mutate(
       geography_code = GEOGRAPHY_CODE,
       geography_name = GEOGRAPHY_NAME
     )
@@ -212,8 +212,8 @@ tr_calc_z <- function(tr_data) {
 
   tr_data <-
     tr_data %>%
-    mutate(townsend = car + persons_per_room + tenure + unemployed) %>%
-    select(-car, -persons_per_room, -tenure, -unemployed)
+    dplyr::mutate(townsend = car + persons_per_room + tenure + unemployed) %>%
+    dplyr::select(-car, -persons_per_room, -tenure, -unemployed)
 
   tr_data
 
