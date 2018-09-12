@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' tr_calc_townsend(2011, "TYPE480")
+#' tr_calc_townsend(2011, "TYPE499")
 tr_calc_townsend <- function(year = NULL, geography = NULL) {
 
   # Check and clean year input
