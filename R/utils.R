@@ -86,26 +86,102 @@ tr_get_nomis_data <- function(year = NULL, geography = NULL) {
 }
 
 
-tr_prep_data <- function(tr_data) {
+tr_bind_data <- function(tr_data) {
+
+  if (length(tr_data) != 4L) {
+    stop("tr_data supplied to tr_prep_data() is not a list of 4 data frames")
+  }
 
   tr_data <- lapply(tr_data, function(x) {
+
+    # nomis api returns urban/rural data; just want total
     x <- x[x$RURAL_URBAN_NAME == "Total", ]
+
+    # normally 'CELL_NAME' is returned; persons_per_room returns this column
+    # as 'C_PPROOMHUK11_NAME'; rename it for consistency
+    colnames(x) = sub("C_PPROOMHUK11_NAME", "CELL_NAME", colnames(x))
+
+    x <- x[, c("GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "CELL_NAME", "OBS_VALUE")]
+
+    x
+
   })
+
+  tr_data <- do.call(rbind, tr_data)
 
   tr_data
 
 }
 
-# car <- nomisr::nomis_get_data(
-#   id = nomis_ids$id[nomis_ids$year == year & nomis_ids$name == "car"],
-#   geography = geography,
-#   measures = 20301,
-#   select = c(
-#     "GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "CELL_NAME", "OBS_VALUE",
-#     "RURAL_URBAN_NAME"
-#   )
-# )
-#
+
+tr_label_data <- function(tr_data) {
+
+  if (!(tibble::is_tibble(tr_data) | is.data.frame(tr_data))) {
+    stop("tr_data supplied to tr_label_data() is not a data frame")
+  }
+
+  # Remove the England and Wales total row, if present
+  tr_data <- tr_data[tr_data$GEOGRAPHY_NAME != "England and Wales", ]
+
+  tr_data <-
+    tr_data %>%
+    dplyr::mutate(
+      CELL_NAME = dplyr::if_else(
+        CELL_NAME == "No cars or vans in household",
+        "car", CELL_NAME
+      ),
+
+      CELL_NAME = dplyr::if_else(
+        CELL_NAME == "Over 1.0 and up to 1.5 persons per room",
+        "persons_per_room", CELL_NAME
+      ),
+      CELL_NAME = dplyr::if_else(
+        CELL_NAME == "Over 1.5 persons per room",
+        "persons_per_room", CELL_NAME
+      ),
+
+      CELL_NAME = dplyr::if_else(
+        CELL_NAME == "Social rented", "tenure", CELL_NAME
+      ),
+      CELL_NAME = dplyr::if_else(
+        CELL_NAME == "Private rented", "tenure", CELL_NAME
+      ),
+      CELL_NAME = dplyr::if_else(
+        CELL_NAME == "Living rent free", "tenure", CELL_NAME
+      ),
+
+      CELL_NAME = dplyr::if_else(
+        CELL_NAME == "Economically active: Unemployed", "unemployed", CELL_NAME
+      )
+
+    )
+
+  tr_data
+
+}
+
+
+tr_shape_data <- function(tr_data) {
+
+  if (!(tibble::is_tibble(tr_data) | is.data.frame(tr_data))) {
+    stop("tr_data supplied to tr_label_data() is not a data frame")
+  }
+
+  tr_data <-
+    tr_data %>%
+    dplyr::filter(
+      CELL_NAME == "car" | CELL_NAME == "persons_per_room" |
+        CELL_NAME == "tenure" | CELL_NAME == "unemployed"
+    ) %>%
+    dplyr::group_by(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME) %>%
+    dplyr::summarise_if(is.numeric, sum) %>%
+    dplyr::ungroup() %>%
+    tidyr::spread(key = CELL_NAME, value = OBS_VALUE)
+
+  tr_data
+
+}
+
 # car <-
 #   car %>%
 #   dplyr::filter(
@@ -114,17 +190,6 @@ tr_prep_data <- function(tr_data) {
 #   dplyr::mutate(CELL_NAME = "car") %>%
 #   dplyr::select(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME, OBS_VALUE)
 #
-#
-# persons_per_room <- nomisr::nomis_get_data(
-#   id = nomis_ids$id[nomis_ids$year == year &
-#                       nomis_ids$name == "persons_per_room"],
-#   geography = geography,
-#   measures = 20301,
-#   select = c(
-#     "GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "C_PPROOMHUK11_NAME", "OBS_VALUE",
-#     "RURAL_URBAN_NAME"
-#   )
-# )
 #
 # persons_per_room <-
 #   persons_per_room %>%
@@ -139,17 +204,7 @@ tr_prep_data <- function(tr_data) {
 #   dplyr::ungroup() %>%
 #   dplyr::mutate(CELL_NAME = "persons_per_room") %>%
 #   dplyr::select(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME, OBS_VALUE)
-#
-#
-# tenure <- nomisr::nomis_get_data(
-#   id = nomis_ids$id[nomis_ids$year == year & nomis_ids$name == "tenure"],
-#   geography = geography,
-#   measures = 20301,
-#   select = c(
-#     "GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "CELL_NAME", "OBS_VALUE",
-#     "RURAL_URBAN_NAME"
-#   )
-# )
+
 #
 # tenure <-
 #   tenure %>%
@@ -164,15 +219,6 @@ tr_prep_data <- function(tr_data) {
 #   dplyr::mutate(CELL_NAME = "tenure") %>%
 #   dplyr::select(GEOGRAPHY_CODE, GEOGRAPHY_NAME, CELL_NAME, OBS_VALUE)
 #
-#
-# unemployed <- nomisr::nomis_get_data(
-#   id = nomis_ids$id[nomis_ids$year == year & nomis_ids$name == "unemployed"],
-#   geography = geography,
-#   measures = 20301,select = c(
-#     "GEOGRAPHY_CODE", "GEOGRAPHY_NAME", "CELL_NAME", "OBS_VALUE",
-#     "RURAL_URBAN_NAME"
-#   )
-# )
 #
 # unemployed <-
 #   unemployed %>%
