@@ -21,8 +21,10 @@ NULL
 ## added 'id' as this is also a global that the user does not have access to
 if (getRversion() >= "2.15.1") {
   utils::globalVariables(c(
-    ".", "id", "CELL_NAME", "GEOGRAPHY_CODE", "GEOGRAPHY_NAME",
-    "OBS_VALUE"
+    ".", "id", "CELL_NAME", "OBS_VALUE",
+    "GEOGRAPHY_CODE", "geography_code",
+    "GEOGRAPHY_NAME", "geography_name",
+    "car", "persons_per_room", "tenure", "unemployed"
   ))
 }
 
