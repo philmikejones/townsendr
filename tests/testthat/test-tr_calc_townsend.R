@@ -80,3 +80,24 @@ test_that("correct input is correctly processed", {
   expect_true(is.numeric(dat$tenure))
   expect_true(is.numeric(dat$unemployed))
 })
+
+
+context("tr_calc_z()")
+
+test_that("incorrect input errors", {
+  expect_error(
+    tr_calc_z(c("dat1", "dat2")),
+    msg = "tr_data supplied to tr_calc_z()"
+  )
+})
+
+dat = tr_calc_z(dat)
+test_that("correct input returns z scores", {
+  expect_true(isTRUE(all.equal(
+    colnames(dat), c(
+      "geography_code", "geography_name", "townsend"
+    )
+  )))
+
+  expect_true(is.numeric(dat$townsend))
+})
