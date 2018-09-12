@@ -15,7 +15,8 @@ Imports:
     nomisr,
     dplyr,
     magrittr,
-    tibble
+    tibble,
+    tidyr
 RoxygenNote: 6.1.0
 Suggests: 
     testthat,
