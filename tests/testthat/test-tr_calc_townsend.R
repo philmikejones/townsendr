@@ -1,1 +1,32 @@
-context("Test tr_calc_townsend")
+context("tr_get_nomis_data()")
+
+test_that("correct inputs return a list of tibbles", {
+  dat = tr_get_nomis_data(year = 2011, geography = "TYPE499")
+  expect_true(is.list(dat))
+
+  test = lapply(dat, tibble::is_tibble)
+  lapply(test, expect_true)
+})
+
+
+context("tr_bind_data()")
+
+test_that("incorrect input errors", {
+  tr_data = list("dat1", "dat2", "dat3")
+  expect_error(
+    tr_bind_data(tr_data),
+    msg = "tr_data supplied to tr_prep_data() is not a list of 4 data frames"
+  )
+
+  tr_data = c("dat1", "dat2", "dat3", "dat4")
+  expect_error(
+    tr_bind_data(tr_data),
+    msg = "tr_data supplied to tr_prep_data() is not a list of 4 data frames"
+  )
+
+  tr_data = list("dat1", "dat2", "dat3", "dat4")
+  expect_error(
+    tr_bind_data(tr_data),
+    msg = "tr_data supplied to tr_prep_data() is not a list of 4 data frames"
+  )
+})

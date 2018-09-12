@@ -99,6 +99,16 @@ tr_bind_data <- function(tr_data) {
     stop("tr_data supplied to tr_prep_data() is not a list of 4 data frames")
   }
 
+  if (!is.list(tr_data)) {
+    stop("tr_data supplied to tr_prep_data() is not a list of 4 data frames")
+  }
+
+  for (i in seq_along(tr_data)) {
+    if (!(is.data.frame(i) | tibble::is_tibble(i))) {
+      stop("tr_data supplied to tr_prep_data() is not a list of 4 data frames")
+    }
+  }
+
   tr_data <- lapply(tr_data, function(x) {
 
     # nomis api returns urban/rural data; just want total
